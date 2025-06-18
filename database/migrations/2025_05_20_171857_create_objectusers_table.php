@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up(): void {
-        Schema::create('objectusers', function (Blueprint $table) {
+        Schema::create('ObjectUsers', function (Blueprint $table) {
             $table->uuid('objectSid')->primary();
             $table->timestamp('badPasswordTime')->nullable();
             $table->timestamp('lastLogon')->nullable();

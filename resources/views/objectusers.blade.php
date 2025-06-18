@@ -21,6 +21,14 @@
                                 class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm w-full"
                             />
 
+                            <!-- Filtre -->
+                            <select 
+                                name="filter" 
+                                class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm">
+                                <option value="objectSid" {{ request('filter') === 'objectSid' ? 'selected' : '' }}>SID</option>
+                                <option value="displayName" {{ request('filter') === 'displayName' ? 'selected' : '' }}>Nom</option>
+                                <option value="lastLogon" {{ request('filter') === 'lastLogon' ? 'selected' : '' }}>Dernière connexion</option>
+                            </select>
 
                             <!-- Bouton de recherche -->
                             <button 

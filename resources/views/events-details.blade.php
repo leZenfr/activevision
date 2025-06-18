@@ -36,11 +36,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="border border-gray-300 px-4 py-2">Nom de l'Utilisateur</td>
+                                <td class="border border-gray-300 px-4 py-2">Nom de l'Entité</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $log->targetUserName ?? 'Non spécifié' }}</td>
                             </tr>
                             <tr>
-                                <td class="border border-gray-300 px-4 py-2">SID de l'Utilisateur</td>
+                                <td class="border border-gray-300 px-4 py-2">SID de l'Entité</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $log->targetSid ?? 'Non spécifié' }}</td>
                             </tr>
                             <tr>

@@ -51,8 +51,6 @@ class ObjectUserController extends Controller
         // Récupérer l'utilisateur
         $objectUser = ObjectUser::where('objectSid', $objectSid)->firstOrFail();
     
-        $perPage = $request->input('per_page', 15);
-        
         // Récupérer les logs utilisateur associés
         $query = UserLog::with('identifiedLog.event')
             ->where('targetSid', $objectSid); // Filtrer les logs pour cet utilisateur
@@ -65,7 +63,7 @@ class ObjectUserController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
     
-        $userLogs = $query->paginate($perPage);
+        $userLogs = $query->get();
     
         // Préparer les données pour le graphique
         $eventDates = $userLogs->pluck('created_at')->map(function ($date) {
@@ -76,6 +74,6 @@ class ObjectUserController extends Controller
             return $log->identifiedLog->event->titre ?? 'Non spécifié';
         });
     
-        return view('objectuser-detail', compact('objectUser', 'userLogs', 'eventDates', 'eventTitles', 'perPage'));
+        return view('objectuser-detail', compact('objectUser', 'userLogs', 'eventDates', 'eventTitles'));
     }
 }

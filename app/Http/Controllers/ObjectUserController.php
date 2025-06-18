@@ -24,13 +24,23 @@ class ObjectUserController extends Controller
     public function search(Request $request)
     {
         $query = ObjectUser::query();
-
-        if ($request->filled('search') && $request->filled('filter')) {
-            $query->where($request->filter, 'LIKE', '%' . $request->search . '%');
+    
+        if ($request->filled('search')) {
+            $searchTerm = '%' . $request->search . '%';
+    
+            // Recherche sur plusieurs colonnes
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('objectSid', 'LIKE', $searchTerm)
+                  ->orWhere('displayName', 'LIKE', $searchTerm)
+                  ->orWhere('userPrincipalName', 'LIKE', $searchTerm)
+                  ->orWhere('sAMAccountName', 'LIKE', $searchTerm)
+                  ->orWhere('postalCode', 'LIKE', $searchTerm)
+                  ->orWhere('company', 'LIKE', $searchTerm);
+            });
         }
-
-        $objectUsers = $query->get(); 
-        return view('objectusers', compact('objectUsers')); 
+    
+        $objectUsers = $query->get();
+        return view('objectusers', compact('objectUsers'));
     }
 
     /**

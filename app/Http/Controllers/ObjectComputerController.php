@@ -18,6 +18,25 @@ class ObjectComputerController extends Controller
         return view('objectcomputer', compact('objectComputers')); // Passe les données à la vue
     }
 
+    public function search(Request $request)
+{
+    $query = ObjectComputer::query();
+
+    if ($request->filled('search')) {
+        $searchTerm = '%' . $request->search . '%';
+
+        // Recherche sur plusieurs colonnes
+        $query->where(function ($q) use ($searchTerm) {
+            $q->where('objectSid', 'LIKE', $searchTerm)
+              ->orWhere('operatingSystem', 'LIKE', $searchTerm)
+              ->orWhere('logonCount', 'LIKE', $searchTerm);
+        });
+    }
+
+    $objectComputers = $query->get();
+    return view('objectcomputer', compact('objectComputers'));
+}
+
     /**
      * Affiche les détails d'un ordinateur.
      */

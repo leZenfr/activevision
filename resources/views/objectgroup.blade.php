@@ -11,6 +11,28 @@
                 <div class="p-6 text-gray-900">
                     <h3 class="text-2xl font-bold mb-6 text-indigo-600">Groupes</h3>
 
+                    <!-- Moteur de recherche -->
+                    <form method="GET" action="{{ route('objectgroups.search') }}" class="mb-6">
+                        <div class="flex items-center space-x-4">
+                            <!-- Champ de recherche -->
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value="{{ request('search') }}" 
+                                placeholder="Rechercher..." 
+                                class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm w-full"
+                            />
+
+                            <!-- Bouton de recherche -->
+                            <button 
+                                type="submit" 
+                                class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600">
+                                Rechercher
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Tableau des groupes -->
                     <table class="min-w-full border-collapse border border-gray-200">
                         <thead>
                             <tr class="bg-gray-100">
@@ -32,7 +54,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="border border-gray-300 px-4 py-2 text-center">
+                                    <td colspan="3" class="border border-gray-300 px-4 py-2 text-center">
                                         Aucun groupe trouvé.
                                     </td>
                                 </tr>

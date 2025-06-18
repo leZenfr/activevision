@@ -7,6 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Informations générales -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="text-2xl font-bold mb-6 text-indigo-600">Informations de l'utilisateur</h3>
@@ -46,113 +47,114 @@
                 </div>
             </div>
 
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg"></div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <!-- Encadré pour les logs liés à l'utilisateur -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6">
                 <div class="p-6 text-gray-900">
-                    <h3 class="text-2xl font-bold mb-6 text-indigo-600">Événements</h3>
+                    <h3 class="text-xl font-bold mb-4 text-indigo-600">Logs liés à l'utilisateur</h3>
 
-                    <!-- Filtres -->
-                    <form method="GET" action="{{ route('objectusers.show', $objectUser->objectSid) }}" class="mb-6">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <!-- Filtre par date -->
-                            <div>
-                                <label for="start_date" class="block text-sm font-medium text-gray-700">Date de début</label>
-                                <input type="date" name="start_date" id="start_date" value="{{ request('start_date') }}" class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm w-full">
-                            </div>
-                            <div>
-                                <label for="end_date" class="block text-sm font-medium text-gray-700">Date de fin</label>
-                                <input type="date" name="end_date" id="end_date" value="{{ request('end_date') }}" class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm w-full">
-                            </div>
-
-                            <!-- Filtre par type d'événement
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Type d'événement</label>
-                                <div class="flex items-center space-x-6">
-                                    <label class="flex items-center space-x-2 text-sm text-gray-600 hover:text-indigo-600">
-                                        <input type="checkbox" name="event_types[]" value="user_data" {{ in_array('user_data', request('event_types', [])) ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                                        <span>Données utilisateur</span>
-                                    </label>
-                                    <label class="flex items-center space-x-2 text-sm text-gray-600 hover:text-indigo-600">
-                                        <input type="checkbox" name="event_types[]" value="password" {{ in_array('password', request('event_types', [])) ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                                        <span>Mot de passe</span>
-                                    </label>
-                                    <label class="flex items-center space-x-2 text-sm text-gray-600 hover:text-indigo-600">
-                                        <input type="checkbox" name="event_types[]" value="account_management" {{ in_array('account_management', request('event_types', [])) ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                                        <span>Gestion de compte</span>
-                                    </label>
-                                </div>
-                            </div> -->
-                        </div>
-                        <div class="mt-4">
-                            <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600">Filtrer</button>
-                        </div>
+                    <!-- Liste déroulante pour choisir le nombre de logs par page -->
+                    <form method="GET" action="{{ route('objectusers.show', $objectUser->objectSid) }}" class="mb-4">
+                        <label for="per_page" class="block text-sm font-medium text-gray-700">Nombre de logs par page :</label>
+                        <select name="per_page" id="per_page" class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm" onchange="this.form.submit()">
+                            <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+                        </select>
                     </form>
 
-                    <!-- Graphique -->
-                    <div class="bg-gray-100 p-4 rounded-lg shadow mt-6">
-                        <h4 class="text-lg font-semibold mb-4 text-gray-800">Timeline des événements</h4>
-                        <canvas id="eventsChart" class="w-full h-64"></canvas>
-                    </div>
+                    @if ($userLogs->isNotEmpty())
+                        <table class="min-w-full border-collapse border border-gray-200">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Date</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Nom de l'Événement</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($userLogs as $log)
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2">{{ $log->created_at->format('d/m/Y H:i') }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ $log->identifiedLog->event->titre ?? 'Non spécifié' }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ $log->identifiedLog->event->description ?? 'Non spécifiée' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
 
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const ctx = document.getElementById('eventsChart').getContext('2d');
+                        <!-- Liens de pagination -->
+                        <div class="mt-4">
+                            {{ $userLogs->appends(['per_page' => request('per_page')])->links() }}
+                        </div>
+                    @else
+                        <p class="text-gray-600">Aucun log trouvé pour cet utilisateur.</p>
+                    @endif
+                </div>
+            </div>
 
-                            const eventDates = @json($eventDates); // Les dates des événements
-                            const eventTitles = @json($eventTitles); // Les titres des événements
-
-                            const data = {
-                                labels: eventDates, // Les dates sur l'axe X
-                                datasets: [{
-                                    label: 'Événements',
-                                    data: eventDates.map(() => 1), // Une valeur constante pour chaque événement
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1,
-                                    pointStyle: 'circle',
-                                    pointRadius: 6,
-                                    pointHoverRadius: 8,
-                                    pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Couleur des "pins"
-                                }]
-                            };
-
-                            const config = {
-                                type: 'line', // Type de graphique
-                                data: data,
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        tooltip: {
-                                            callbacks: {
-                                                label: function (context) {
-                                                    return eventTitles[context.dataIndex]; // Affiche le titre de l'événement au survol
-                                                }
-                                            }
-                                        }
-                                    },
-                                    scales: {
-                                        x: {
-                                            title: {
-                                                display: true,
-                                                text: 'Dates'
-                                            }
-                                        },
-                                        y: {
-                                            display: false // Cache l'axe Y car il n'est pas nécessaire
-                                        }
-                                    }
-                                }
-                            };
-
-                            new Chart(ctx, config);
-                        });
-                    </script>
+            <!-- Encadré pour le graphique des événements -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6">
+                <div class="p-6 text-gray-900">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-600">Graphique des événements</h3>
+                    <canvas id="eventsChart" class="w-full h-64"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('eventsChart').getContext('2d');
+
+            const eventDates = @json($eventDates); // Les dates des événements
+            const eventTitles = @json($eventTitles); // Les titres des événements
+
+            const data = {
+                labels: eventDates, // Les dates sur l'axe X
+                datasets: [{
+                    label: 'Événements',
+                    data: eventDates.map(() => 1), // Une valeur constante pour chaque événement
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    pointStyle: 'circle',
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Couleur des points
+                }]
+            };
+
+            const config = {
+                type: 'line', // Type de graphique
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return eventTitles[context.dataIndex]; // Affiche le titre de l'événement au survol
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Dates'
+                            }
+                        },
+                        y: {
+                            display: false // Cache l'axe Y car il n'est pas nécessaire
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
+        });
+    </script>
 </x-app-layout>

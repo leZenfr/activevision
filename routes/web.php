@@ -33,9 +33,11 @@ Route::get('/objectusers/search', [ObjectUserController::class, 'search'])->name
 Route::get('/objectusers/{objectSid}', [ObjectUserController::class, 'show'])->name('objectusers.show');
 
 Route::get('/objectcomputers', [ObjectComputerController::class, 'index'])->name('objectcomputers');
+Route::get('/objectcomputers/search', [ObjectComputerController::class, 'search'])->name('objectcomputers.search');
 Route::get('/objectcomputers/{objectSid}', [ObjectComputerController::class, 'show'])->name('objectcomputers.show');
 
 Route::get('/objectgroups', [ObjectGroupController::class, 'index'])->name('objectgroups');
+Route::get('/objectgroups/search', [ObjectGroupController::class, 'search'])->name('objectgroups.search');
 Route::get('/objectgroups/{objectSid}', [ObjectGroupController::class, 'show'])->name('objectgroups.show');
 
 Route::get('/events/users', [EventController::class, 'indexUsers'])->name('events.users.index');

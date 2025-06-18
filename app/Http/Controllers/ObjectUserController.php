@@ -24,13 +24,23 @@ class ObjectUserController extends Controller
     public function search(Request $request)
     {
         $query = ObjectUser::query();
-
-        if ($request->filled('search') && $request->filled('filter')) {
-            $query->where($request->filter, 'LIKE', '%' . $request->search . '%');
+    
+        if ($request->filled('search')) {
+            $searchTerm = '%' . $request->search . '%';
+    
+            // Recherche sur plusieurs colonnes
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('objectSid', 'LIKE', $searchTerm)
+                  ->orWhere('displayName', 'LIKE', $searchTerm)
+                  ->orWhere('userPrincipalName', 'LIKE', $searchTerm)
+                  ->orWhere('sAMAccountName', 'LIKE', $searchTerm)
+                  ->orWhere('postalCode', 'LIKE', $searchTerm)
+                  ->orWhere('company', 'LIKE', $searchTerm);
+            });
         }
-
-        $objectUsers = $query->get(); 
-        return view('objectusers', compact('objectUsers')); 
+    
+        $objectUsers = $query->get();
+        return view('objectusers', compact('objectUsers'));
     }
 
     /**
@@ -41,6 +51,8 @@ class ObjectUserController extends Controller
         // Récupérer l'utilisateur
         $objectUser = ObjectUser::where('objectSid', $objectSid)->firstOrFail();
     
+        $perPage = $request->input('per_page', 15);
+        
         // Récupérer les logs utilisateur associés
         $query = UserLog::with('identifiedLog.event')
             ->where('targetSid', $objectSid); // Filtrer les logs pour cet utilisateur
@@ -53,7 +65,7 @@ class ObjectUserController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
     
-        $userLogs = $query->get();
+        $userLogs = $query->paginate($perPage);
     
         // Préparer les données pour le graphique
         $eventDates = $userLogs->pluck('created_at')->map(function ($date) {
@@ -64,6 +76,6 @@ class ObjectUserController extends Controller
             return $log->identifiedLog->event->titre ?? 'Non spécifié';
         });
     
-        return view('objectuser-detail', compact('objectUser', 'userLogs', 'eventDates', 'eventTitles'));
+        return view('objectuser-detail', compact('objectUser', 'userLogs', 'eventDates', 'eventTitles', 'perPage'));
     }
 }

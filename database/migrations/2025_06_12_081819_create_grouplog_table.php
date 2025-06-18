@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('GroupLog', function (Blueprint $table) {
+        Schema::create('grouplog', function (Blueprint $table) {
             $table->bigIncrements('groupLogId'); // PK
             $table->unsignedBigInteger('identifierIdLog'); // KE
 

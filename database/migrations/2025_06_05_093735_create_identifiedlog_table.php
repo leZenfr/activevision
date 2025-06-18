@@ -11,7 +11,7 @@ class CreateIdentifiedLogTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('IdentifiedLog', function (Blueprint $table) {
+        Schema::create('identifiedlog', function (Blueprint $table) {
             $table->bigIncrements('idIdentifiedLog'); // Clé primaire
 
             $table->unsignedBigInteger('idEvent'); // Clé étrangère

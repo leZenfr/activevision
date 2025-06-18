@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('UserLog', function (Blueprint $table) {
+        Schema::create('userlog', function (Blueprint $table) {
             $table->bigIncrements('userLogId'); // Clé primaire
             $table->string('identifierIdLog')->index(); // Clé étrangère potentielle
             $table->string('dummy')->nullable();

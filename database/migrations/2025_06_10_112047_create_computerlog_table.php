@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ComputerLog', function (Blueprint $table) {
+        Schema::create('computerlog', function (Blueprint $table) {
             $table->bigIncrements('computerLogId');
             $table->string('identifierIdLog')->nullable();
             $table->string('computerAccountChange')->nullable();

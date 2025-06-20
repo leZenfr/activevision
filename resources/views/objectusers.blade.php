@@ -39,8 +39,6 @@
                                 <th class="border border-gray-300 px-4 py-2 text-left">Nom</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Nom SAM</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Code Postal</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Entreprise</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Dernière Connexion</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
                             </tr>
@@ -52,8 +50,6 @@
                                     <td class="border border-gray-300 px-4 py-2">{{ $objectUser->displayName }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $objectUser->userPrincipalName }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $objectUser->sAMAccountName }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $objectUser->postalCode }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $objectUser->company }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
                                         {{ $objectUser->lastLogon ? $objectUser->lastLogon->format('d/m/Y H:i') : 'Jamais' }}
                                     </td>

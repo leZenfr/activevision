@@ -33,6 +33,8 @@ cp .env.example .env
 ```
 Mettre les informations de la base de données
 ```
+nano .env
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306

@@ -11,4 +11,9 @@ Installer le projet dans le répertoire `/var/www/`
 cd /var/www/
 git clone https://github.com/leZenfr/activevision.git
 ```
-
+Il faut ensuite installer les dépendances 
+```
+cd activevision/
+composer install
+npm install
+```

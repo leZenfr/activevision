@@ -18,7 +18,12 @@ cd activevision/
 composer install
 npm install
 ```
-### Étape 2 : Configurer l'application
+### Étape 2 : Configurer l'application et la base de données
+
+Créer la base de données
+```
+mysql -u root -p -e "CREATE DATABASE ads;"
+```
 
 Sauvegarder et configurer le fichier d'environnement
 ```
@@ -33,3 +38,14 @@ DB_DATABASE=ads
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+
+Paramétrer mysql pour rendre la base compatible
+```
+nano /etc/mysql/my.cnf
+```
+Rajouter cette ligne à la fin
+```
+[mysqld]
+sql_mode=""
+```
+

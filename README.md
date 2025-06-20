@@ -14,6 +14,22 @@ git clone https://github.com/leZenfr/activevision.git
 Il faut ensuite installer les dépendances 
 ```
 cd activevision/
+
 composer install
 npm install
+```
+### Étape 2 : Configurer l'application
+
+Sauvegarder et configurer le fichier d'environnement
+```
+cp .env.example .env
+```
+Mettre les informations de la base de données
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ads
+DB_USERNAME=root
+DB_PASSWORD=
 ```

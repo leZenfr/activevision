@@ -94,7 +94,7 @@ sudo php artisan key:generate
 
 Préremplir la base 
 ```
-sudo php artisan db:seed
+php artisan db:seed
 ```
 
 ### Étape 3 : Démarrer l'application 

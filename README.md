@@ -84,7 +84,7 @@ sudo npm run build
 
 Faire les migrations
 ```
-sudo php artisan migrate
+php artisan migrate
 ```
 
 Créer la clé 

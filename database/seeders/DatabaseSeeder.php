@@ -19,5 +19,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+                User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@activevision.fr',
+            'password' => bcrypt('admin1234'), // Change ce mot de passe après le premier login
+        ]);
+
+        $this->call(EventSeeder::class);
     }
 }

@@ -11,7 +11,7 @@ Pour le serveur web sélectionner faire `espace` puis `entrer`
 Installer le projet dans le répertoire `/var/www/`
 ```
 cd /var/www/
-git clone https://github.com/leZenfr/activevision.git
+sudo git clone https://github.com/leZenfr/activevision.git
 ```
 Il faut ensuite installer les dépendances 
 ```
@@ -21,7 +21,7 @@ cd activevision/
 sudo composer install
 ```
 ```
-npm install
+sudo npm install
 ```
 ### Étape 2 : Configurer l'application et la base de données
 
@@ -47,11 +47,11 @@ EOF
 
 Sauvegarder et configurer le fichier d'environnement
 ```
-cp .env.example .env
+sudo cp .env.example .env
 ```
 Mettre les informations de la base de données
 ```
-nano .env
+sudo nano .env
 ```
 ```
 DB_CONNECTION=mysql
@@ -79,7 +79,7 @@ sudo systemctl restart mysql
 
 Build l'application
 ```
-npm run build
+sudo npm run build
 ```
 
 Faire les migrations

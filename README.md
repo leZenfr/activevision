@@ -34,13 +34,15 @@ sudo mysql -u root -p -e "CREATE DATABASE ads;"
 
 Créer l'utilisateur pour la base de données
 ```
-mysql -u root -p
+DB_NAME="ads"
+DB_USER="mon_user"
+DB_PASS="mon_mot_de_passe"
 
-CREATE USER 'VOTRE_USER'@'localhost' IDENTIFIED BY 'VOTRE_MOT_DE_PASSE';
-
-GRANT ALL PRIVILEGES ON ads.* TO 'VOTRE_USER'@'localhost';
-
+sudo mysql -u root -p <<EOF
+CREATE USER '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';
+GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';
 FLUSH PRIVILEGES;
+EOF
 ```
 
 Sauvegarder et configurer le fichier d'environnement

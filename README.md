@@ -64,6 +64,10 @@ Rajouter cette ligne à la fin
 [mysqld]
 sql_mode=""
 ```
+Redémarrer le service
+```
+sudo systemctl restart mysql
+```
 
 Build l'application
 ```

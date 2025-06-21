@@ -27,6 +27,17 @@ Créer la base de données
 mysql -u root -p -e "CREATE DATABASE ads;"
 ```
 
+Créer l'utilisateur pour la base de données
+```
+mysql -u root -p
+
+CREATE USER 'VOTRE_USER'@'localhost' IDENTIFIED BY 'VOTRE_MOT_DE_PASSE';
+
+GRANT ALL PRIVILEGES ON ads.* TO 'VOTRE_USER'@'localhost';
+
+FLUSH PRIVILEGES;
+```
+
 Sauvegarder et configurer le fichier d'environnement
 ```
 cp .env.example .env
@@ -39,8 +50,8 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=ads
-DB_USERNAME=root
-DB_PASSWORD=
+DB_USERNAME=VOTRE_USER
+DB_PASSWORD=VOTRE_MOT_DE_PASSE
 ```
 
 Paramétrer mysql pour rendre la base compatible
@@ -52,6 +63,10 @@ Rajouter cette ligne à la fin
 ```
 [mysqld]
 sql_mode=""
+```
+Redémarrer le service
+```
+sudo systemctl restart mysql
 ```
 
 Build l'application
@@ -67,6 +82,11 @@ php artisan migrate
 Créer la clé 
 ```
 php artisan key:generate
+```
+
+Préremplir la base 
+```
+php artisan db:seed
 ```
 
 ### Étape 3 : Démarrer l'application 

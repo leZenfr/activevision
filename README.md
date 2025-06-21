@@ -101,3 +101,8 @@ php artisan db:seed
 ```
 sudo php artisan serve --host=0.0.0.0 --port=8000
 ```
+
+Mot de passe par défaut l'app :
+
+Identifiants : admin@activevision.fr
+MDP : admin1234

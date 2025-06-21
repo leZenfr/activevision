@@ -29,7 +29,7 @@ IMPORTANT : Il faut rester dans le répertoire `/var/www/activevision`
 
 Créer la base de données
 ```
-mysql -u root -p -e "CREATE DATABASE ads;"
+sudo mysql -u root -p -e "CREATE DATABASE ads;"
 ```
 
 Créer l'utilisateur pour la base de données

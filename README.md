@@ -84,20 +84,20 @@ sudo npm run build
 
 Faire les migrations
 ```
-php artisan migrate
+sudo php artisan migrate
 ```
 
 Créer la clé 
 ```
-php artisan key:generate
+sudo php artisan key:generate
 ```
 
 Préremplir la base 
 ```
-php artisan db:seed
+sudo php artisan db:seed
 ```
 
 ### Étape 3 : Démarrer l'application 
 ```
-php artisan serve --host=0.0.0.0 --port=8000
+sudo php artisan serve --host=0.0.0.0 --port=8000
 ```

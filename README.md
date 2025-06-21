@@ -50,8 +50,8 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=ads
-DB_USERNAME=root
-DB_PASSWORD=
+DB_USERNAME=VOTRE_USER
+DB_PASSWORD=VOTRE_MOT_DE_PASSE
 ```
 
 Paramétrer mysql pour rendre la base compatible

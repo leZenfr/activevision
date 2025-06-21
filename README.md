@@ -16,8 +16,11 @@ git clone https://github.com/leZenfr/activevision.git
 Il faut ensuite installer les dépendances 
 ```
 cd activevision/
-
-composer install
+```
+```
+sudo composer install
+```
+```
 npm install
 ```
 ### Étape 2 : Configurer l'application et la base de données

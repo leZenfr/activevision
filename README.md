@@ -31,9 +31,9 @@ Créer l'utilisateur pour la base de données
 ```
 mysql -u root -p
 
-CREATE USER 'webmaster'@'localhost' IDENTIFIED BY 'webmaster';
+CREATE USER 'VOTRE_USER'@'localhost' IDENTIFIED BY 'VOTRE_MOT_DE_PASSE';
 
-GRANT ALL PRIVILEGES ON ads.* TO 'webmaster'@'localhost';
+GRANT ALL PRIVILEGES ON ads.* TO 'VOTRE_USER'@'localhost';
 
 FLUSH PRIVILEGES;
 ```

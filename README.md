@@ -27,6 +27,17 @@ Créer la base de données
 mysql -u root -p -e "CREATE DATABASE ads;"
 ```
 
+Créer l'utilisateur pour la base de données
+```
+mysql -u root -p
+
+CREATE USER 'webmaster'@'localhost' IDENTIFIED BY 'webmaster';
+
+GRANT ALL PRIVILEGES ON ads.* TO 'webmaster'@'localhost';
+
+FLUSH PRIVILEGES;
+```
+
 Sauvegarder et configurer le fichier d'environnement
 ```
 cp .env.example .env
